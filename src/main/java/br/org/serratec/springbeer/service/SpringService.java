@@ -13,6 +13,7 @@ import br.org.serratec.springbeer.repository.ItemPedidoRepository;
 import br.org.serratec.springbeer.repository.PedidoRepository;
 import br.org.serratec.springbeer.repository.ProdutoRepository;
 
+
 @Service
 public class SpringService {
 	
@@ -37,5 +38,57 @@ public class SpringService {
 				.map(p -> ProdutoDto.toDto(p)).toList();
 		
 	}
+
+
+
+	 public ProdutoDto cadastrarProduto(ProdutoDto produtoDto) {
+	        Produto produto = convertToEntity(produtoDto);
+	        produtoRepositorio.save(produto);
+	        return convertToDto(produto);
+	    }
+
+
+
+	private ProdutoDto convertToDto(Produto produto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	private Produto convertToEntity(ProdutoDto produtoDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public Optional<ProdutoDto> obterProdutoPorId(Long id) {
+        return produtoRepositorio.findById(id)
+                .map(this::convertToDto);
+    }
+
+
+
+	public Optional<ProdutoDto> atualizarProduto(Long id, ProdutoDto produtoDto) {
+        if (produtoRepositorio.existsById(id)) {
+            Produto produto = convertToEntity(produtoDto);
+            produto.setidProduto(id);
+            produtoRepositorio.save(produto);
+            return Optional.of(convertToDto(produto));
+        }
+        return Optional.empty();
+    }
+
+
+
+	public boolean excluirProduto(Long id) {
+        if (produtoRepositorio.existsById(id)) {
+            produtoRepositorio.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 
 }

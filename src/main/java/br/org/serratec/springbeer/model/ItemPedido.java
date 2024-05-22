@@ -13,28 +13,27 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "itempedidos")
 public class ItemPedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idItemPedido;
 	private int quantidade;
-    private BigDecimal precoVenda;
-    private BigDecimal valorBruto;
-    private BigDecimal percentualDesconto;
-    private BigDecimal valorLiquido;
+	private BigDecimal precoVenda;
+	private BigDecimal valorBruto;
+	private BigDecimal percentualDesconto;
+	private BigDecimal valorLiquido;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pedido")
-    private Pedido pedido;
+	@ManyToOne
+	@JoinColumn(name = "idPedido")
+	private Pedido pedido;
 
-    @ManyToOne
-    @JoinColumn(name = "id_produto")
-    private Produto produto;
-    
-    
-    public ItemPedido() {
-    	
-    }
+	@ManyToOne
+	@JoinColumn(name = "idProduto")
+	private Produto produto;
+
+	public ItemPedido() {
+
+	}
 
 	public ItemPedido(Long idItemPedido, int quantidade, BigDecimal precoVenda, BigDecimal valorBruto,
 			BigDecimal percentualDesconto, BigDecimal valorLiquido, Pedido pedido, Produto produto) {
@@ -113,6 +112,4 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 
-    
-    
 }

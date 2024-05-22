@@ -1,16 +1,23 @@
 package br.org.serratec.springbeer.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.springbeer.dto.ProdutoDto;
 import br.org.serratec.springbeer.service.SpringService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/spring")
@@ -23,6 +30,37 @@ public class SpringBeerController {
         return new ResponseEntity<>(servico.obterTodosProdutos(), HttpStatus.OK);
 	}
 	
-	
+	@PostMapping
+    public ResponseEntity<ProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto spring) {
+        return new ResponseEntity<>(servico.cadastrarProduto(spring), HttpStatus.CREATED);
+    }
 
-}
+	@GetMapping("/{id}")
+    public ResponseEntity<ProdutoDto> obterPorId(@PathVariable Long id) {
+        Optional<ProdutoDto> dto = servico.obterProdutoPorId(id);
+        if (dto.isPresent()) {
+            return new ResponseEntity<>(dto.get(), HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+	
+	@PutMapping("/{id}")
+    public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long id, @RequestBody @Valid ProdutoDto spring) {
+        Optional<ProdutoDto> dto = servico.atualizarProduto(id, spring);
+
+        if (dto.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(dto.get());
+    }
+	
+	 @DeleteMapping("/{id}")
+	    public ResponseEntity<Void> remover(@PathVariable Long id) {
+	        if (!servico.excluirProduto(id)) {
+	            return ResponseEntity.notFound().build();
+	        }
+	        return ResponseEntity.noContent().build();
+	    }
+	}
+
+
