@@ -3,17 +3,19 @@ package br.org.serratec.springbeer.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "produtos")
 public class Produto {
 	
-	private Long id_produto;
+	private Long idProduto;
 	private String descricao;
-	private int quant_estoque;
-	private LocalDate data_cadastro;
-	private Double valor_unitario;
+	private int quantidadeEstoque;
+	private LocalDate dataCadastro;
+	private Double valorUnitario;
+	@Lob
 	private byte[] imagem;
 	private Categoria categoria;
 	
@@ -24,22 +26,22 @@ public class Produto {
 	
 	
 	
-	public Produto(Long id_produto, String descricao, int quant_estoque, LocalDate data_cadastro, Double valor_unitario,
+	public Produto(Long idProduto, String descricao, int quantidadeEstoque, LocalDate dataCadastro, Double valorUnitario,
 			byte[] imagem, Categoria categoria) {
 		super();
-		this.id_produto = id_produto;
+		this.idProduto = idProduto;
 		this.descricao = descricao;
-		this.quant_estoque = quant_estoque;
-		this.data_cadastro = data_cadastro;
-		this.valor_unitario = valor_unitario;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.dataCadastro = dataCadastro;
+		this.valorUnitario = valorUnitario;
 		this.imagem = imagem;
 		this.categoria = categoria;
 	}
-	public Long getId_produto() {
-		return id_produto;
+	public Long getidProduto() {
+		return idProduto;
 	}
-	public void setId_produto(Long id_produto) {
-		this.id_produto = id_produto;
+	public void setidProduto(Long idProduto) {
+		this.idProduto = idProduto;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -47,23 +49,23 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public int getQuant_estoque() {
-		return quant_estoque;
+	public int getquantidadeEstoque() {
+		return quantidadeEstoque;
 	}
-	public void setQuant_estoque(int quant_estoque) {
-		this.quant_estoque = quant_estoque;
+	public void setquantidadeEstoque(int quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
 	}
-	public LocalDate getData_cadastro() {
-		return data_cadastro;
+	public LocalDate getdataCadastro() {
+		return dataCadastro;
 	}
-	public void setData_cadastro(LocalDate data_cadastro) {
-		this.data_cadastro = data_cadastro;
+	public void setdataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
-	public Double getValor_unitario() {
-		return valor_unitario;
+	public Double getvalorUnitario() {
+		return valorUnitario;
 	}
-	public void setValor_unitario(Double valor_unitario) {
-		this.valor_unitario = valor_unitario;
+	public void setvalorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 	public byte[] getImagem() {
 		return imagem;

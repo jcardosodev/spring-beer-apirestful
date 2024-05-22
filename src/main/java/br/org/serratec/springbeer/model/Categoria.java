@@ -7,41 +7,41 @@ import jakarta.persistence.Table;
 @Table(name = "categorias")
 public class Categoria {
 	
-	private Long id_categoria;
-	private String nome_categoria;
-	private String descricao_categoria;
+	private Long idCategoria;
+	private String nomeCategoria;
+	private String descricaoCategoria;
 	
 	
 	 public Categoria() {
 	    }
 
-	    public Categoria(Long id_categoria, String nome_categoria) {
-	        this.id_categoria = id_categoria;
-	        this.nome_categoria = nome_categoria;
+	    public Categoria(Long idCategoria, String nomeCategoria) {
+	        this.idCategoria = idCategoria;
+	        this.nomeCategoria = nomeCategoria;
 	    }
 
-		public Long getId_categoria() {
-			return id_categoria;
+		public Long getidCategoria() {
+			return idCategoria;
 		}
 
-		public void setId_categoria(Long id_categoria) {
-			this.id_categoria = id_categoria;
+		public void setidCategoria(Long idCategoria) {
+			this.idCategoria = idCategoria;
 		}
 
-		public String getNome_categoria() {
-			return nome_categoria;
+		public String getnomeCategoria() {
+			return nomeCategoria;
 		}
 
-		public void setNome_categoria(String nome_categoria) {
-			this.nome_categoria = nome_categoria;
+		public void setnomeCategoria(String nomeCategoria) {
+			this.nomeCategoria = nomeCategoria;
 		}
 
-		public String getDescricao_categoria() {
-			return descricao_categoria;
+		public String getdescricaoCategoria() {
+			return descricaoCategoria;
 		}
 
-		public void setDescricao_categoria(String descricao_categoria) {
-			this.descricao_categoria = descricao_categoria;
+		public void setdescricaoCategoria(String descricaoCategoria) {
+			this.descricaoCategoria = descricaoCategoria;
 		}
 	    
    
