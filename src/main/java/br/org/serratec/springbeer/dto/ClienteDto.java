@@ -21,5 +21,7 @@ public record ClienteDto(
 		return Mapper.getMapper().convertValue(this, Cliente.class);
 	}
 
-
+	public static ClienteDto toDto(Cliente clienteEntity) {
+		return Mapper.getMapper().convertValue(clienteEntity, ClienteDto.class);
+	}
 }

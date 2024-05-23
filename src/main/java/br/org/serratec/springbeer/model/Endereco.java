@@ -14,26 +14,28 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cep;
-    private String rua;
+    private String logradouro;
     private String bairro;
+    private String cidade;
+    private String uf;
     private String numero;
     private String complemento;
-    private String uf;
 
     public Endereco() {
 
     }
-    
-	public Endereco(Long id, String cep, String rua, String bairro, String numero, String complemento,
-			String uf) {
+
+	public Endereco(Long id, String cep, String logradouro, String bairro, String cidade, String uf, String numero,
+			String complemento) {
 		super();
 		this.id = id;
 		this.cep = cep;
-		this.rua = rua;
+		this.logradouro = logradouro;
 		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uf = uf;
 		this.numero = numero;
 		this.complemento = complemento;
-		this.uf = uf;
 	}
 
 	public String getCep() {
@@ -44,12 +46,12 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public String getRua() {
-		return rua;
+	public String getlogradouro() {
+		return logradouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setlogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getBairro() {
@@ -82,6 +84,14 @@ public class Endereco {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+	
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 }
