@@ -12,6 +12,7 @@ import br.org.serratec.springbeer.repository.ClienteRepository;
 import br.org.serratec.springbeer.repository.ItemPedidoRepository;
 import br.org.serratec.springbeer.repository.PedidoRepository;
 import br.org.serratec.springbeer.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 
 
 @Service
@@ -34,48 +35,41 @@ public class ProdutoService {
 					.map(p -> ProdutoDto.toDto(p)).toList();
 	}
 	
-	 public ProdutoDto cadastrarProduto(ProdutoDto produtoDto) {
-	        Produto produto = convertToEntity(produtoDto);
-	        produtoRepositorio.save(produto);
-	        return convertToDto(produto);
+	 public ProdutoDto cadastrarProduto(ProdutoDto produto) {
+	        Produto produtoEntity = produtoRepositorio.save(produto.toEntity());
+	        return ProdutoDto.toDto(produtoEntity);
 	    }
 
-
-	private ProdutoDto convertToDto(Produto produto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	private Produto convertToEntity(ProdutoDto produtoDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 	public Optional<ProdutoDto> obterProdutoPorId(Long id) {
-        return produtoRepositorio.findById(id)
-                .map(this::convertToDto);
+		Optional<Produto> produtoEntity = produtoRepositorio.findById(id);
+		if (produtoEntity.isEmpty()) {
+			return Optional.of(ProdutoDto.toDto(produtoEntity.get()));
+		}
+        return Optional.empty();
     }
 
 
-	public Optional<ProdutoDto> atualizarProduto(Long id, ProdutoDto produtoDto) {
+	public Optional<ProdutoDto> atualizarProduto(Long id, @Valid ProdutoDto produto) {
         if (produtoRepositorio.existsById(id)) {
-            Produto produto = convertToEntity(produtoDto);
-            produto.setid(id);
-            produtoRepositorio.save(produto);
-            return Optional.of(convertToDto(produto));
+            Produto produtoEntity = produto.toEntity();
+            produtoEntity.setId(id);;
+            produtoRepositorio.save(produtoEntity);
+            return Optional.of(ProdutoDto.toDto(produtoEntity));
         }
         return Optional.empty();
     }
 
 
-	public boolean excluirProduto(Long id) {
-        if (produtoRepositorio.existsById(id)) {
-            produtoRepositorio.deleteById(id);
-            return true;
+	public boolean excluirProdutoPorId(Long id) {
+		Optional<Produto> produto = produtoRepositorio.findById(id);
+		
+        if (produto.isEmpty()) {
+        	return false;
         }
-        return false;
+        
+        produtoRepositorio.deleteById(id);
+        
+        return true;
     }
 
 }

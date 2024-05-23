@@ -9,7 +9,7 @@ import br.org.serratec.springbeer.model.Pedido;
 
 public record PedidoDto(
 			
-	 Long idPedido,
+	 Long id,
 	 LocalDate dataPedido,
 	 LocalDate dataEntrega,
 	 LocalDate dataEnvio,

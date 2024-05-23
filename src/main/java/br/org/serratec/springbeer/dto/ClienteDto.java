@@ -8,7 +8,7 @@ import br.org.serratec.springbeer.model.Endereco;
 
 public record ClienteDto(
 		
-		 Long idCliente,	
+		 Long id,	
 		 String email,
 		 String nomeCompleto,
 		 String cpf,

@@ -9,12 +9,13 @@ import br.org.serratec.springbeer.model.Produto;
 
 public record ProdutoDto(
 		
-		 Long idProduto,
+		 Long id,
+		 String nomeProduto,
 		 String descricao,
 		 int quantidadeEstoque,
 		 LocalDate dataCadastro,
 		 Double valorUnitario,		
-		 byte[] imagem,
+		 String imagem,
 		 Categoria categoria
 		
 		) {

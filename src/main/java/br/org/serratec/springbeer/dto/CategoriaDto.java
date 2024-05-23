@@ -5,7 +5,7 @@ import br.org.serratec.springbeer.model.Categoria;
 
 public record CategoriaDto(
 		
-		 Long idCategoria,
+		 Long id,
 		 String nomeCategoria,
 		 String descricaoCategoria
 		) {

@@ -9,7 +9,7 @@ import br.org.serratec.springbeer.model.Produto;
 
 public record ItemPedidoDto(
 		
-		 Long idItemPedido,
+		 Long id,
 		 int quantidade,
 	     BigDecimal precoVenda,
 	     BigDecimal valorBruto,

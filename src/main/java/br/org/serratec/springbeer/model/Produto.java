@@ -16,12 +16,12 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String nomeProduto;
 	private String descricao;
 	private int quantidadeEstoque;
 	private LocalDate dataCadastro;
 	private Double valorUnitario;
-	@Lob
-	private byte[] imagem;
+	private String imagem;
 	@ManyToOne
 	private Categoria categoria;
 
@@ -29,10 +29,11 @@ public class Produto {
 
 	}
 
-	public Produto(Long id, String descricao, int quantidadeEstoque, LocalDate dataCadastro,
-			Double valorUnitario, byte[] imagem, Categoria categoria) {
+	public Produto(Long id, String nomeProduto, String descricao, int quantidadeEstoque, LocalDate dataCadastro,
+			Double valorUnitario, String imagem, Categoria categoria) {
 		super();
 		this.id = id;
+		this.nomeProduto = nomeProduto;
 		this.descricao = descricao;
 		this.quantidadeEstoque = quantidadeEstoque;
 		this.dataCadastro = dataCadastro;
@@ -41,12 +42,20 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public Long getid() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setid(Long id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
 	}
 
 	public String getDescricao() {
@@ -57,35 +66,35 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public int getquantidadeEstoque() {
+	public int getQuantidadeEstoque() {
 		return quantidadeEstoque;
 	}
 
-	public void setquantidadeEstoque(int quantidadeEstoque) {
+	public void setQuantidadeEstoque(int quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
-	public LocalDate getdataCadastro() {
+	public LocalDate getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setdataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Double getvalorUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 
-	public void setvalorUnitario(Double valorUnitario) {
+	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public byte[] getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 
@@ -96,7 +105,5 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-	
 
 }

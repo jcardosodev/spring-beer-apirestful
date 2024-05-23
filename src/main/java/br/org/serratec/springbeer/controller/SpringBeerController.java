@@ -27,7 +27,7 @@ public class SpringBeerController {
 	private ProdutoService servico;
 	
 	@GetMapping
-	 public ResponseEntity<List<ProdutoDto>> obterTodos() {
+	 public ResponseEntity<List<ProdutoDto>> obterProdutos() {
         return new ResponseEntity<>(servico.obterTodosProdutos(), HttpStatus.OK);
 	}
 	
@@ -37,7 +37,7 @@ public class SpringBeerController {
     }
 
 	@GetMapping("/{id}")
-    public ResponseEntity<ProdutoDto> obterPorId(@PathVariable Long id) {
+    public ResponseEntity<ProdutoDto> obterProdutoId(@PathVariable Long id) {
         Optional<ProdutoDto> dto = servico.obterProdutoPorId(id);
         if (dto.isPresent()) {
             return new ResponseEntity<>(dto.get(), HttpStatus.FOUND);
@@ -46,7 +46,7 @@ public class SpringBeerController {
     }
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long id, @RequestBody @Valid ProdutoDto produto) {
+    public ResponseEntity<ProdutoDto> atualizarProdutoId(@PathVariable Long id, @RequestBody @Valid ProdutoDto produto) {
         Optional<ProdutoDto> dto = servico.atualizarProduto(id, produto);
 
         if (dto.isEmpty()) {
@@ -56,8 +56,8 @@ public class SpringBeerController {
     }
 	
 	 @DeleteMapping("/{id}")
-	    public ResponseEntity<Void> remover(@PathVariable Long id) {
-	        if (!servico.excluirProduto(id)) {
+	    public ResponseEntity<Void> excluirProdutoId(@PathVariable Long id) {
+	        if (!servico.excluirProdutoPorId(id)) {
 	            return ResponseEntity.notFound().build();
 	        }
 	        return ResponseEntity.noContent().build();
