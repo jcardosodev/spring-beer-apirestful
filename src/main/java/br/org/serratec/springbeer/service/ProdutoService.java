@@ -15,7 +15,7 @@ import br.org.serratec.springbeer.repository.ProdutoRepository;
 
 
 @Service
-public class SpringService {
+public class ProdutoService {
 	
 	@Autowired
 	private PedidoRepository pedidoRepositorio;
@@ -29,24 +29,16 @@ public class SpringService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepositorio;
 	
-	
-	
 	public List<ProdutoDto> obterTodosProdutos() {
-		
-		Optional<Produto> produto = produtoRepositorio.findById();
-		return produtoRepositorio.buscaPorProduto(produto.get()).stream()
-				.map(p -> ProdutoDto.toDto(p)).toList();
-		
+			return produtoRepositorio.findAll().stream()
+					.map(p -> ProdutoDto.toDto(p)).toList();
 	}
-
-
-
+	
 	 public ProdutoDto cadastrarProduto(ProdutoDto produtoDto) {
 	        Produto produto = convertToEntity(produtoDto);
 	        produtoRepositorio.save(produto);
 	        return convertToDto(produto);
 	    }
-
 
 
 	private ProdutoDto convertToDto(Produto produto) {
@@ -55,12 +47,10 @@ public class SpringService {
 	}
 
 
-
 	private Produto convertToEntity(ProdutoDto produtoDto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 
 	public Optional<ProdutoDto> obterProdutoPorId(Long id) {
@@ -69,17 +59,15 @@ public class SpringService {
     }
 
 
-
 	public Optional<ProdutoDto> atualizarProduto(Long id, ProdutoDto produtoDto) {
         if (produtoRepositorio.existsById(id)) {
             Produto produto = convertToEntity(produtoDto);
-            produto.setidProduto(id);
+            produto.setid(id);
             produtoRepositorio.save(produto);
             return Optional.of(convertToDto(produto));
         }
         return Optional.empty();
     }
-
 
 
 	public boolean excluirProduto(Long id) {
@@ -89,6 +77,5 @@ public class SpringService {
         }
         return false;
     }
-
 
 }

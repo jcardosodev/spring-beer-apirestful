@@ -1,6 +1,5 @@
 package br.org.serratec.springbeer.model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,38 +10,30 @@ import jakarta.persistence.Table;
 @Table(name = "enderecos")
 public class Endereco {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idEndereco;
-	private String cep;
-	private String rua;
-	private String bairro;
-	private String numero;
-	private String complemento;
-	private String uf;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String cep;
+    private String rua;
+    private String bairro;
+    private String numero;
+    private String complemento;
+    private String uf;
 
-	public Endereco() {
+    public Endereco() {
 
-	}
-
-	public Endereco(Long idEndereco, String cep, String rua, String bairro, String numero, String complemento,
+    }
+    
+	public Endereco(Long id, String cep, String rua, String bairro, String numero, String complemento,
 			String uf) {
 		super();
-		this.idEndereco = idEndereco;
+		this.id = id;
 		this.cep = cep;
 		this.rua = rua;
 		this.bairro = bairro;
 		this.numero = numero;
 		this.complemento = complemento;
 		this.uf = uf;
-	}
-
-	public Long getidEndereco() {
-		return idEndereco;
-	}
-
-	public void setidEndereco(Long idEndereco) {
-		this.idEndereco = idEndereco;
 	}
 
 	public String getCep() {

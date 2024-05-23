@@ -23,7 +23,7 @@ public record ProdutoDto(
 		return Mapper.getMapper().convertValue(this, Produto.class);
 	}
 
-	public static ProdutoDto toDto(ProdutoDto produtoEntity) {
+	public static ProdutoDto toDto(Produto produtoEntity) {
 		return Mapper.getMapper().convertValue(produtoEntity, ProdutoDto.class);
 		
 	}

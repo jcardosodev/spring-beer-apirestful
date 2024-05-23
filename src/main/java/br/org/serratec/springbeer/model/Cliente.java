@@ -2,12 +2,11 @@ package br.org.serratec.springbeer.model;
 
 import java.time.LocalDate;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,24 +15,25 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idCliente;
-//	@Email
+	private Long id;
+
 	private String email;
 	private String nomeCompleto;
 	private String cpf;
 	private String telefone;
 	private LocalDate dataNascimento;
-	@OneToOne
+	@ManyToOne
 	private Endereco endereco;
+	// talvez a relacao ManyToOne esteja errada, manytomany faz mais sentido
 
 	public Cliente() {
 
 	}
 
-	public Cliente(Long idCliente, String email, String nomeCompleto, String cpf, String telefone,
+	public Cliente(Long id, String email, String nomeCompleto, String cpf, String telefone,
 			LocalDate dataNascimento, Endereco endereco) {
 		super();
-		this.idCliente = idCliente;
+		this.id = id;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;
 		this.cpf = cpf;
@@ -42,12 +42,12 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+	public Long getid() {
+		return id;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setid(Long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {

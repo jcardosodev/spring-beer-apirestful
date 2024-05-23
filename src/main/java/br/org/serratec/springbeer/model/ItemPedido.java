@@ -16,7 +16,7 @@ public class ItemPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idItemPedido;
+	private Long id;
 	private int quantidade;
 	private BigDecimal precoVenda;
 	private BigDecimal valorBruto;
@@ -35,10 +35,10 @@ public class ItemPedido {
 
 	}
 
-	public ItemPedido(Long idItemPedido, int quantidade, BigDecimal precoVenda, BigDecimal valorBruto,
+	public ItemPedido(Long id, int quantidade, BigDecimal precoVenda, BigDecimal valorBruto,
 			BigDecimal percentualDesconto, BigDecimal valorLiquido, Pedido pedido, Produto produto) {
 		super();
-		this.idItemPedido = idItemPedido;
+		this.id = id;
 		this.quantidade = quantidade;
 		this.precoVenda = precoVenda;
 		this.valorBruto = valorBruto;
@@ -48,12 +48,12 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 
-	public Long getIdItemPedido() {
-		return idItemPedido;
+	public Long getid() {
+		return id;
 	}
 
-	public void setIdItemPedido(Long idItemPedido) {
-		this.idItemPedido = idItemPedido;
+	public void setid(Long id) {
+		this.id = id;
 	}
 
 	public int getQuantidade() {

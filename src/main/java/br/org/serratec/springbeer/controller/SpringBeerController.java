@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.springbeer.dto.ProdutoDto;
-import br.org.serratec.springbeer.service.SpringService;
+import br.org.serratec.springbeer.service.ProdutoService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/spring")
 public class SpringBeerController {
+	
 	@Autowired
-	private SpringService servico;
+	private ProdutoService servico;
 	
 	@GetMapping
 	 public ResponseEntity<List<ProdutoDto>> obterTodos() {
@@ -31,8 +32,8 @@ public class SpringBeerController {
 	}
 	
 	@PostMapping
-    public ResponseEntity<ProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto spring) {
-        return new ResponseEntity<>(servico.cadastrarProduto(spring), HttpStatus.CREATED);
+    public ResponseEntity<ProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produto) {
+        return new ResponseEntity<>(servico.cadastrarProduto(produto), HttpStatus.CREATED);
     }
 
 	@GetMapping("/{id}")
@@ -45,8 +46,8 @@ public class SpringBeerController {
     }
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long id, @RequestBody @Valid ProdutoDto spring) {
-        Optional<ProdutoDto> dto = servico.atualizarProduto(id, spring);
+    public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long id, @RequestBody @Valid ProdutoDto produto) {
+        Optional<ProdutoDto> dto = servico.atualizarProduto(id, produto);
 
         if (dto.isEmpty()) {
             return ResponseEntity.notFound().build();

@@ -23,5 +23,10 @@ public record ItemPedidoDto(
 	public ItemPedido toEntity() {
 		return Mapper.getMapper().convertValue(this, ItemPedido.class);
 	}
+	
+	public static ItemPedidoDto toDto(ItemPedidoDto itemPedidoEntity) {
+		return Mapper.getMapper().convertValue(itemPedidoEntity, ItemPedidoDto.class);
+		
+	}
 
 }
