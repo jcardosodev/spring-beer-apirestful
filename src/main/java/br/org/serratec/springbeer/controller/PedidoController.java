@@ -16,45 +16,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.springbeer.dto.ClienteDto;
-import br.org.serratec.springbeer.dto.DadosViaCep;
-import br.org.serratec.springbeer.service.ClienteService;
+import br.org.serratec.springbeer.dto.PedidoDto;
+import br.org.serratec.springbeer.service.PedidoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/pedidos")
+public class PedidoController {
 	
 	@Autowired
-	private ClienteService servico;
+	private PedidoService servico;
 	
 	@GetMapping
-	 public ResponseEntity<List<ClienteDto>> obterTodosClientes() {
-      return new ResponseEntity<>(servico.obterTodosCliente(), HttpStatus.OK);
+	 public ResponseEntity<List<PedidoDto>> obterTodosPedido() {
+     return new ResponseEntity<>(servico.obterTodosPedidos(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/busca/{id}")
-    public ResponseEntity<ClienteDto> obterClienteId(@PathVariable Long id) {
-        Optional<ClienteDto> dto = servico.obterClientePorId(id);
+	@GetMapping("/{id}")
+    public ResponseEntity<PedidoDto> obterPedidoId(@PathVariable Long id) {
+        Optional<PedidoDto> dto = servico.obterPedidoPorId(id);
         if (dto.isPresent()) {
             return new ResponseEntity<>(dto.get(), HttpStatus.FOUND);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 	
-	
-	@GetMapping("/{cep}")
-	public DadosViaCep obterDadosCep(@PathVariable String cep) {
-		return servico.obterDadosViaCep(cep);
-	}
-	
 	@PostMapping
-    public ResponseEntity<ClienteDto> cadastrarCliente(@RequestBody @Valid ClienteDto cliente) {
-        return new ResponseEntity<>(servico.cadastrarCliente(cliente), HttpStatus.CREATED);
+    public ResponseEntity<PedidoDto> cadastrarPedido(@RequestBody @Valid PedidoDto Pedido) {
+        return new ResponseEntity<>(servico.cadastrarPedido(Pedido), HttpStatus.CREATED);
     }
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<ClienteDto> atualizarClienteId(@PathVariable Long id, @RequestBody @Valid ClienteDto cliente) {
-        Optional<ClienteDto> dto = servico.atualizarCliente(id, cliente);
+    public ResponseEntity<PedidoDto> atualizarPedidoId(@PathVariable Long id, @RequestBody @Valid PedidoDto Pedido) {
+        Optional<PedidoDto> dto = servico.atualizarPedido(id, Pedido);
 
         if (dto.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -63,11 +57,10 @@ public class ClienteController {
     }
 	
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluirClientePorId(@PathVariable Long id) {
-        if (!servico.excluirClientePorId(id)) {
+    public ResponseEntity<Void> excluirPedidoPorId(@PathVariable Long id) {
+        if (!servico.excluirPedidoPorId(id)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
     }
-		
 }

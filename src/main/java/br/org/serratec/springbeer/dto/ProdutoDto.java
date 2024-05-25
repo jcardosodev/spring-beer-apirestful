@@ -2,11 +2,13 @@ package br.org.serratec.springbeer.dto;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.org.serratec.springbeer.config.Mapper;
 import br.org.serratec.springbeer.model.Categoria;
 import br.org.serratec.springbeer.model.Produto;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record ProdutoDto(
 		
 		 Long id,
@@ -16,7 +18,7 @@ public record ProdutoDto(
 		 LocalDate dataCadastro,
 		 Double valorUnitario,		
 		 String imagem,
-		 Categoria categoria
+		 Categoria categoriaProduto
 		
 		) {
 	

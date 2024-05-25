@@ -2,10 +2,12 @@ package br.org.serratec.springbeer.dto;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.org.serratec.springbeer.config.Mapper;
 import br.org.serratec.springbeer.model.Cliente;
-import br.org.serratec.springbeer.model.Endereco;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record ClienteDto(
 		
 		 Long id,	
@@ -14,7 +16,7 @@ public record ClienteDto(
 		 String cpf,
 		 String telefone,
 		 LocalDate dataNascimento,
-		 Endereco endereco
+		 DadosViaCep endereco
 		) {
 	
 	public Cliente toEntity() {

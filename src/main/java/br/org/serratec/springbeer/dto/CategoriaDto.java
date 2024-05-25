@@ -1,13 +1,15 @@
 package br.org.serratec.springbeer.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.org.serratec.springbeer.config.Mapper;
 import br.org.serratec.springbeer.model.Categoria;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record CategoriaDto(
-		
-		 Long id,
-		 String nomeCategoria,
-		 String descricaoCategoria
+
+		 String categoriaProduto
+		 
 		) {
 	
 	public Categoria toEntity() {

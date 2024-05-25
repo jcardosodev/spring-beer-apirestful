@@ -1,13 +1,16 @@
 package br.org.serratec.springbeer.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,15 +25,18 @@ public class Produto {
 	private LocalDate dataCadastro;
 	private Double valorUnitario;
 	private String imagem;
-	@ManyToOne
-	private Categoria categoria;
+	@Enumerated(EnumType.STRING)
+	private Categoria categoriaProduto;
+	
+	@OneToMany(mappedBy = "produto")
+    private List<ItemPedido> itemPedido;
 
 	public Produto() {
 
 	}
 
 	public Produto(Long id, String nomeProduto, String descricao, int quantidadeEstoque, LocalDate dataCadastro,
-			Double valorUnitario, String imagem, Categoria categoria) {
+			Double valorUnitario, String imagem, Categoria categoriaProduto) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
@@ -39,7 +45,7 @@ public class Produto {
 		this.dataCadastro = dataCadastro;
 		this.valorUnitario = valorUnitario;
 		this.imagem = imagem;
-		this.categoria = categoria;
+		this.categoriaProduto = categoriaProduto;
 	}
 
 	public Long getId() {
@@ -98,12 +104,12 @@ public class Produto {
 		this.imagem = imagem;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Categoria getCategoriaProduto() {
+		return categoriaProduto;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoriaProduto(Categoria categoriaProduto) {
+		this.categoriaProduto = categoriaProduto;
 	}
 
 }

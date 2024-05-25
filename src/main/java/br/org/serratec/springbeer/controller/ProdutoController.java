@@ -20,7 +20,7 @@ import br.org.serratec.springbeer.service.ProdutoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 	
 	@Autowired

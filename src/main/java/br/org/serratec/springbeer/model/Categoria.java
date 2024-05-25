@@ -1,53 +1,37 @@
 package br.org.serratec.springbeer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "categorias")
-public class Categoria {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nomeCategoria;
-	private String descricaoCategoria;
+public enum Categoria {
+	EQUIPAMENTOS("Equipamentos"),
+	MALTES("Maltes"),
+	LUPULOS("Lúpulos"),
+	FERMENTO("Fermento"),
+	KITSRECEITAS("Kits");
 
 	
+	private String categoriaProduto;
 	
-	public Categoria() {
+	private Categoria(String categoriaProduto) {
+		this.categoriaProduto = categoriaProduto;
 	}
 	
-	public Categoria(Long id, String nomeCategoria) {
-		this.id = id;
-		this.nomeCategoria = nomeCategoria;
+	public static Categoria toCategoria(String categoriaProduto) {
+		
+		for (Categoria categoria : Categoria.values()) {
+			
+			if (categoria.categoriaProduto.equalsIgnoreCase(categoriaProduto)) {
+				return categoria;
+			}
+		}
+		
+		return null;
 	}
 
-	public Long getid() {
-		return id;
+	public String getCategoriaProduto() {
+		return categoriaProduto;
 	}
 
-	public void setid(Long id) {
-		this.id = id;
-	}
-
-	public String getnomeCategoria() {
-		return nomeCategoria;
-	}
-
-	public void setnomeCategoria(String nomeCategoria) {
-		this.nomeCategoria = nomeCategoria;
-	}
-
-	public String getdescricaoCategoria() {
-		return descricaoCategoria;
-	}
-
-	public void setdescricaoCategoria(String descricaoCategoria) {
-		this.descricaoCategoria = descricaoCategoria;
+	public void setCategoriaProduto(String categoriaProduto) {
+		this.categoriaProduto = categoriaProduto;
 	}
 
 }

@@ -1,12 +1,12 @@
 package br.org.serratec.springbeer.model;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -18,29 +18,28 @@ public class ItemPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private int quantidade;
-	private BigDecimal precoVenda;
-	private BigDecimal valorBruto;
-	private BigDecimal percentualDesconto;
-	private BigDecimal valorLiquido;
+	private Double valorUnitario;
+	private Double valorBruto;
+	private Double percentualDesconto;
+	private Double valorLiquido;
 
-	@ManyToOne
-	@JoinColumn(name = "idPedido")
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JsonBackReference
 	private Pedido pedido;
 
-	@ManyToOne
-	@JoinColumn(name = "idProduto")
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Produto produto;
 
 	public ItemPedido() {
 
 	}
 
-	public ItemPedido(Long id, int quantidade, BigDecimal precoVenda, BigDecimal valorBruto,
-			BigDecimal percentualDesconto, BigDecimal valorLiquido, Pedido pedido, Produto produto) {
+	public ItemPedido(Long id, int quantidade, Double valorUnitario, Double valorBruto,
+			Double percentualDesconto, Double valorLiquido, Pedido pedido, Produto produto) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
-		this.precoVenda = precoVenda;
+		this.valorUnitario = valorUnitario;
 		this.valorBruto = valorBruto;
 		this.percentualDesconto = percentualDesconto;
 		this.valorLiquido = valorLiquido;
@@ -64,35 +63,27 @@ public class ItemPedido {
 		this.quantidade = quantidade;
 	}
 
-	public BigDecimal getPrecoVenda() {
-		return precoVenda;
-	}
-
-	public void setPrecoVenda(BigDecimal precoVenda) {
-		this.precoVenda = precoVenda;
-	}
-
-	public BigDecimal getValorBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
-	public void setValorBruto(BigDecimal valorBruto) {
+	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public BigDecimal getPercentualDesconto() {
+	public Double getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(BigDecimal percentualDesconto) {
+	public void setPercentualDesconto(Double percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public BigDecimal getValorLiquido() {
+	public Double getValorLiquido() {
 		return valorLiquido;
 	}
 
-	public void setValorLiquido(BigDecimal valorLiquido) {
+	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
 
@@ -111,5 +102,18 @@ public class ItemPedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+	
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
+	
+
+	
+	
 
 }

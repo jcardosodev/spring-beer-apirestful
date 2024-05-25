@@ -15,46 +15,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.springbeer.dto.ClienteDto;
-import br.org.serratec.springbeer.dto.DadosViaCep;
-import br.org.serratec.springbeer.service.ClienteService;
+import br.org.serratec.springbeer.dto.ItemPedidoDto;
+import br.org.serratec.springbeer.service.ItemPedidoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/item_pedidos")
+public class ItemPedidoController {
 	
 	@Autowired
-	private ClienteService servico;
+	private ItemPedidoService servico;
 	
 	@GetMapping
-	 public ResponseEntity<List<ClienteDto>> obterTodosClientes() {
-      return new ResponseEntity<>(servico.obterTodosCliente(), HttpStatus.OK);
+	 public ResponseEntity<List<ItemPedidoDto>> obterTodosItemPedido() {
+     return new ResponseEntity<>(servico.obterTodosItemPedidos(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/busca/{id}")
-    public ResponseEntity<ClienteDto> obterClienteId(@PathVariable Long id) {
-        Optional<ClienteDto> dto = servico.obterClientePorId(id);
+	@GetMapping("/{id}")
+    public ResponseEntity<ItemPedidoDto> obterItemPedidoId(@PathVariable Long id) {
+        Optional<ItemPedidoDto> dto = servico.obterItemPedidoPorId(id);
         if (dto.isPresent()) {
             return new ResponseEntity<>(dto.get(), HttpStatus.FOUND);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 	
-	
-	@GetMapping("/{cep}")
-	public DadosViaCep obterDadosCep(@PathVariable String cep) {
-		return servico.obterDadosViaCep(cep);
-	}
-	
 	@PostMapping
-    public ResponseEntity<ClienteDto> cadastrarCliente(@RequestBody @Valid ClienteDto cliente) {
-        return new ResponseEntity<>(servico.cadastrarCliente(cliente), HttpStatus.CREATED);
-    }
+    public ResponseEntity<List<ItemPedidoDto>> cadastroItemPedido(@RequestBody @Valid List<ItemPedidoDto> ItemPedido) {
+		 List<ItemPedidoDto> savedItems = servico.cadastrarItemPedido(ItemPedido);
+		    return ResponseEntity.status(HttpStatus.CREATED).body(savedItems);
+}
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<ClienteDto> atualizarClienteId(@PathVariable Long id, @RequestBody @Valid ClienteDto cliente) {
-        Optional<ClienteDto> dto = servico.atualizarCliente(id, cliente);
+    public ResponseEntity<ItemPedidoDto> atualizarItemPedidoId(@PathVariable Long id, @RequestBody @Valid ItemPedidoDto ItemPedido) {
+        Optional<ItemPedidoDto> dto = servico.atualizarItemPedido(id, ItemPedido);
 
         if (dto.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -63,11 +57,10 @@ public class ClienteController {
     }
 	
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluirClientePorId(@PathVariable Long id) {
-        if (!servico.excluirClientePorId(id)) {
+    public ResponseEntity<Void> excluirItemPedidoPorId(@PathVariable Long id) {
+        if (!servico.excluirItemPedidoPorId(id)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
     }
-		
 }

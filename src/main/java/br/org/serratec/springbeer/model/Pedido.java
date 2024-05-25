@@ -1,8 +1,12 @@
 package br.org.serratec.springbeer.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,16 +29,28 @@ public class Pedido {
 	private LocalDate dataEnvio;
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	private BigDecimal valorTotal;
+	private Double valorTotal;
 	@ManyToOne
 	private Cliente cliente;
+
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "pedido")
+	@JsonManagedReference
+    private List<ItemPedido> itemPedido = new ArrayList<>();
+	
+	public List<ItemPedido> getItemPedido() {
+		return itemPedido;
+	}
+
+	public void setItemPedido(List<ItemPedido> itemPedido) {
+		this.itemPedido = itemPedido;
+	}
 
 	public Pedido() {
 
 	}
 
 	public Pedido(Long id, LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Status status,
-			BigDecimal valorTotal, Cliente cliente) {
+			Double valorTotal, Cliente cliente) {
 		super();
 		this.id = id;
 		this.dataPedido = dataPedido;
@@ -84,11 +101,11 @@ public class Pedido {
 		this.status = status;
 	}
 
-	public BigDecimal getValorTotal() {
+	public Double getValorTotal() {
 		return valorTotal;
 	}
 
-	public void setValorTotal(BigDecimal valorTotal) {
+	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 

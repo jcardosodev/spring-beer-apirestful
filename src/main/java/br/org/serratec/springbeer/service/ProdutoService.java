@@ -42,7 +42,7 @@ public class ProdutoService {
 
 	public Optional<ProdutoDto> obterProdutoPorId(Long id) {
 		Optional<Produto> produtoEntity = produtoRepositorio.findById(id);
-		if (produtoEntity.isEmpty()) {
+		if (produtoEntity.isPresent()) {
 			return Optional.of(ProdutoDto.toDto(produtoEntity.get()));
 		}
         return Optional.empty();
