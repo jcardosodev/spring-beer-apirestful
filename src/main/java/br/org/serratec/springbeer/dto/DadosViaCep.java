@@ -4,15 +4,16 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.org.serratec.springbeer.model.Endereco;
+import jakarta.validation.constraints.NotBlank;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record DadosViaCep(
-		@JsonAlias("cep") String cep,
+		String cep,
 		@JsonAlias("logradouro") String rua,
-		@JsonAlias("bairro") String bairro,
+		String bairro,
 		int numero,
 		@JsonAlias("localidade") String cidade,
-		@JsonAlias("uf") String uf,
+		String uf,
 		String complemento) {
 	
 	public Endereco toEntity() {

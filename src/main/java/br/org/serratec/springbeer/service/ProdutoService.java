@@ -45,7 +45,7 @@ public class ProdutoService {
 		if (produtoEntity.isPresent()) {
 			return Optional.of(ProdutoDto.toDto(produtoEntity.get()));
 		}
-        return Optional.empty();
+        throw new IllegalArgumentException("Esse produto não existe!");
     }
 
 

@@ -36,12 +36,17 @@ public class ClienteService {
         		.map(c -> ClienteDto.toDto(c)).toList();
     }
 	
+	@SuppressWarnings("unused")
 	public ClienteDto cadastrarCliente(ClienteDto cliente) {
 		DadosViaCep dados = obterDadosViaCep(cliente.endereco().cep());
+		if(dados == null) {
+        	throw new IllegalArgumentException("Digite um cep válido");
+        }
 		DadosViaCep enderecoCompleto = new DadosViaCep(dados.cep(), dados.rua(), dados.bairro(), 
 				cliente.endereco().numero(), dados.cidade(), dados.uf(), cliente.endereco().complemento());
         Cliente clienteEntity = cliente.toEntity();     
         clienteEntity.setEndereco(enderecoCompleto.toEntity());
+        
         return ClienteDto.toDto(repositorioCliente.save(clienteEntity));
     }
 	

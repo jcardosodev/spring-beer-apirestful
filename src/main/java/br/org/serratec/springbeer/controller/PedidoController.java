@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.serratec.springbeer.dto.ClienteDto;
 import br.org.serratec.springbeer.dto.PedidoDto;
+import br.org.serratec.springbeer.dto.RelatorioDto;
 import br.org.serratec.springbeer.service.PedidoService;
 import jakarta.validation.Valid;
 
@@ -37,6 +37,16 @@ public class PedidoController {
         Optional<PedidoDto> dto = servico.obterPedidoPorId(id);
         if (dto.isPresent()) {
             return new ResponseEntity<>(dto.get(), HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+	
+	@GetMapping("/relatorio/{id}")
+    public ResponseEntity<RelatorioDto> obterRelatorioId(@PathVariable Long id) {
+        Optional<PedidoDto> dto = servico.obterPedidoPorId(id);
+        if (dto.isPresent()) {
+        	PedidoDto pedidoDto = dto.get();
+            return ResponseEntity.ok(pedidoDto.relatorioToDto());
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

@@ -29,21 +29,32 @@ public class PedidoService {
         		.map(p -> PedidoDto.toDto(p)).toList();
     }
 
-    public PedidoDto cadastrarPedido(PedidoDto pedidoDto) {    
+
+	public PedidoDto cadastrarPedido(PedidoDto pedidoDto) {    
     ClienteDto cliente = servicoCliente.cadastrarCliente(pedidoDto.cliente());
+    
     Pedido pedidoEntity = pedidoDto.toEntity();
     pedidoEntity.setCliente(cliente.toEntity());
+   
     List<ItemPedido> itensPedido = pedidoDto.itemPedido().stream()
         .map(itemDto -> {
         	
             ItemPedido itemPedido = itemDto.toEntity();
+            if (itemPedido.getQuantidade() > itemPedido.getProduto().getQuantidadeEstoque()) {
+            	throw new IllegalArgumentException("Quantidade informada maior que quantidade em estoque!");
+            }
+           
             itemPedido.setPedido(pedidoEntity);
-            Double valorBruto = itemPedido.getValorUnitario() * itemPedido.getQuantidade();
+            Double valorBruto = itemPedido.getProduto().getValorUnitario() * itemPedido.getQuantidade();
             Double valorDesconto = valorBruto * (itemPedido.getPercentualDesconto() / 100);
             itemPedido.setValorBruto(valorBruto);
             itemPedido.setValorLiquido(valorBruto - valorDesconto);
             itemPedido.setProduto(itemDto.produto().toEntity());
+            itemPedido.setValorUnitario(itemPedido.getProduto().getValorUnitario());
+            int novaQuantidade = itemPedido.getProduto().getQuantidadeEstoque() - itemPedido.getQuantidade();
+            itemPedido.getProduto().setQuantidadeEstoque(novaQuantidade);
             return itemPedido;
+            
         })
         .collect(Collectors.toList());
     
@@ -64,7 +75,7 @@ public class PedidoService {
         if (pedidoEntity.isPresent()) {
             return Optional.of(PedidoDto.toDto(pedidoEntity.get()));
         }
-        return Optional.empty();
+        throw new IllegalArgumentException("Esse pedido não existe!");
     }
 	
 	public Optional<PedidoDto> atualizarPedido(Long id, PedidoDto pedidoDto) {
@@ -129,5 +140,7 @@ public class PedidoService {
         repositorioPedido.deleteById(id);
         return true;
     }
+
+	
 	
 }

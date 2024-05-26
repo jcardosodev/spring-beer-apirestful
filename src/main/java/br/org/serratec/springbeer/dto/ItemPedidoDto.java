@@ -1,5 +1,6 @@
 package br.org.serratec.springbeer.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.org.serratec.springbeer.config.Mapper;
@@ -14,6 +15,7 @@ public record ItemPedidoDto(
 	     Double valorBruto,
 	     Double percentualDesconto,
 	     Double valorLiquido,
+	     @JsonIgnore	
          PedidoDto pedido,
          ProdutoDto produto
 		
@@ -28,5 +30,8 @@ public record ItemPedidoDto(
 		
 	}
 
-
+	public RelacaoItemPedidoDto itemPedidoRelatorioToDto() {
+		  return new RelacaoItemPedidoDto(this.id,this.percentualDesconto,this.produto.nomeProduto(),
+				  this.valorUnitario,this.quantidade,this.valorBruto,this.valorLiquido);
+	  }
 }

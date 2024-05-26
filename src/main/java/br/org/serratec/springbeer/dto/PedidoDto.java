@@ -1,13 +1,15 @@
 package br.org.serratec.springbeer.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.org.serratec.springbeer.config.Mapper;
 import br.org.serratec.springbeer.model.Pedido;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -32,8 +34,21 @@ public record PedidoDto(
 		return Mapper.getMapper().convertValue(pedidoEntity, PedidoDto.class);
 	}
 	
-//	public List<ItemPedidoDto> getItensPedido() {
-//	        return itensPedido == null ? List.of() : itensPedido;
-//	}
+	public RelatorioDto relatorioToDto() {
+	    
+	    List<RelacaoItemPedidoDto> relatorioItem = new ArrayList<>();
+	    this.itemPedido.forEach(item -> {
+	    	relatorioItem.add(item.itemPedidoRelatorioToDto());
+	    });
+	      
+	    return new RelatorioDto(
+	            this.id,
+	            this.dataPedido,
+	            relatorioItem,
+	            this.valorTotal
+	            
+	            
+	    );  
+	}
 
 }
