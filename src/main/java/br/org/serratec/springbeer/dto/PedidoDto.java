@@ -46,8 +46,7 @@ public record PedidoDto(
 	            this.dataPedido,
 	            relatorioItem,
 	            this.valorTotal
-	            
-	            
+	               
 	    );  
 	}
 

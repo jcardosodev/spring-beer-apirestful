@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.springbeer.dto.ClienteDto;
 import br.org.serratec.springbeer.dto.DadosViaCep;
+import br.org.serratec.springbeer.enviaremail.EnvioEmail;
 import br.org.serratec.springbeer.model.Cliente;
 import br.org.serratec.springbeer.repository.ClienteRepository;
 import jakarta.validation.Valid;
@@ -18,7 +19,8 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repositorioCliente;
 	
-	
+	@Autowired
+	EnvioEmail emailSender;
 	
 	@Autowired
 	private ConverterDados conversor;
@@ -46,6 +48,7 @@ public class ClienteService {
 				cliente.endereco().numero(), dados.cidade(), dados.uf(), cliente.endereco().complemento());
         Cliente clienteEntity = cliente.toEntity();     
         clienteEntity.setEndereco(enderecoCompleto.toEntity());
+        emailSender.sendSimpleMessage(clienteEntity.getEmail(), "Welcome!", "Welcome to our service!");
         
         return ClienteDto.toDto(repositorioCliente.save(clienteEntity));
     }
@@ -80,5 +83,11 @@ public class ClienteService {
         repositorioCliente.deleteById(id);
         return true;
     }
+
+//	public List<Cliente> obterClientePorCep(Endereco endereco) {
+//		return repositorioCliente.buscaPorEndereco(endereco).stream()
+//				.map(c -> new Cliente(c.getId(), c.getEmail(), c.getNomeCompleto(),
+//						c.getCpf(), c.getTelefone(), c.getDataNascimento(), c.getEndereco())).toList();
+//	}
 	
 }
